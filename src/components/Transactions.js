@@ -4,7 +4,9 @@ export class Transactions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            transactions : []
+            transactions : [],
+            currentPage: 1,
+            transactionsPerPage: 10
         }
     }
 
@@ -16,8 +18,20 @@ export class Transactions extends Component {
             .then(res => this.setState({ transactions: res }))
     }
 
+    handleClick = (event) => {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
+    }
+
     render() {
-        const transactions = this.state.transactions.map((transaction , idx) => {
+        const { transactions, currentPage, transactionsPerPage } = this.state;
+
+        const indexOfLastTransaction = currentPage * transactionsPerPage;
+        const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
+        const currentTransactions = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+
+        const renderTransactions = currentTransactions.map((transaction , idx) => {
             return <ul className="transactions">
                 <li key={idx}>{++idx}</li>
                 <li key={idx}>{transaction["Date"]}</li>
@@ -28,6 +42,25 @@ export class Transactions extends Component {
                 <li key={idx}>{transaction["Balance AMT"]}</li>
             </ul>
         })
+
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(transactions.length / transactionsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+        const renderPageNumbers = pageNumbers.map(number => {
+            return (
+                <li
+                    key={number}
+                    id={number}
+                    onClick={this.handleClick}
+                    style={{border : '1px solid #ccc' , padding : '5px' , cursor : 'pointer'}}
+                >
+                    {number}
+                </li>
+            );
+        });
+
         return (
             <div className="transactions-container">
                 <ul className="transactionshead">
@@ -39,7 +72,21 @@ export class Transactions extends Component {
                     <li>Deposit AMT</li>
                     <li>Balance AMT</li>
                 </ul>
-                {transactions}
+                <div>
+                    {renderTransactions}
+                    {
+                        renderTransactions.forEach(function (el) {
+                            Object.keys(el).forEach(function (property) {
+                                if (el[property] === '') {
+                                    el[property] = '-';
+                                }
+                            });
+                        })
+                    }
+                    <ul id="page-numbers">
+                        {renderPageNumbers}
+                    </ul>
+                </div>
             </div>
         )
     }
