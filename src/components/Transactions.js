@@ -14,7 +14,11 @@ export class Transactions extends Component {
     }
 
     componentDidMount() {
-        fetch("/bankAccount")
+        fetch("/bankAccount", {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }})
             .then(res => {
                 return res.json();
             })
