@@ -1,0 +1,66 @@
+.App {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background: #eee;
+}
+
+.transactions-container {
+  width: 90%;
+  /* height: 500px; */
+  /* border: 1px solid #B0E0E6; */
+  /* overflow-y: scroll; */
+  /* overflow-x: scroll; */
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+/* ::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #B0E0E6; 
+  border-radius: 10px;
+  margin: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: blue; 
+  border-radius: 10px;
+  height: 100px;
+} */
+
+.transactionshead {
+  list-style: none;
+  padding: 0 ; 
+  display : flex ;
+  flex-direction : row ;
+  justify-content : space-around
+}
+
+.transactionshead li {
+  width: 200px;
+  font-size: 10px;
+  color: #bbb;
+  text-transform: uppercase;
+}
+
+.transactions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+  border: 1px solid #F0F8FF;
+  padding: 10px 0 ;
+  margin: 15px 10px ;
+  font-size : 11px;
+  cursor: pointer;
+}
+
+.transactions li {
+  width: 200px;
+  color: #484848;
+  text-transform: initial;
+}
